@@ -15,6 +15,7 @@ pub(crate) fn undone<R: BufRead>(
         if index == i {
             let mut todo = Todo::deserialize(l.as_str())?;
             todo.done = false;
+            todo.time = None;
             w.push_str(todo.serialize().as_str());
         } else {
             w.push_str(l.as_str());

@@ -78,7 +78,8 @@ pub(crate) fn build() -> Command {
         .subcommand(
             Command::new(DONE)
                 .about("done the task")
-                .arg(arg!(<INDEX>).required(true)),
+                .arg(arg!(<INDEX>).required(true))
+                .arg(arg!(<TIME>).required(false)),
         )
         .subcommand(
             Command::new(UNDONE)
@@ -89,7 +90,7 @@ pub(crate) fn build() -> Command {
             Command::new(RECORD)
                 .about("record elapsed time")
                 .arg(arg!(<INDEX>).required(true))
-                .arg(arg!(<TIME>).required(true)),
+                .arg(arg!(<TIME>).required(false)),
         )
         .subcommand(
             Command::new(UNRECORD)

@@ -15,6 +15,7 @@ pub(crate) fn unrecord<R: BufRead>(
         if index == i {
             let mut todo = Todo::deserialize(l.as_str())?;
             todo.time = None;
+            todo.done = false;
             w.push_str(todo.serialize().as_str());
         } else {
             w.push_str(l.as_str());

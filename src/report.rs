@@ -19,10 +19,7 @@ static JA: Lazy<HashMap<ReportKey, &str>> = Lazy::new(|| {
     HashMap::from([
         (ReportKey::Doing, "進行中のタスク"),
         (ReportKey::Done, "完了済みのタスク"),
-        (
-            ReportKey::Todo,
-            "その他、今週対応予定のタスク（金曜日は来週対応予定のタスク）",
-        ),
+        (ReportKey::Todo, "その他、今週対応予定のタスク"),
         (ReportKey::Comment, "メモ、ぼやき"),
     ])
 });
@@ -31,10 +28,7 @@ static EN: Lazy<HashMap<ReportKey, &str>> = Lazy::new(|| {
     HashMap::from([
         (ReportKey::Doing, "Doing tasks"),
         (ReportKey::Done, "Done tasks"),
-        (
-            ReportKey::Todo,
-            "Todo tasks in this week (On Friday, next week scheduled tasks)",
-        ),
+        (ReportKey::Todo, "Todo tasks in this week"),
         (ReportKey::Comment, "Memo & Comments"),
     ])
 });
@@ -43,7 +37,7 @@ static ZH: Lazy<HashMap<ReportKey, &str>> = Lazy::new(|| {
     HashMap::from([
         (ReportKey::Doing, "进行中的任务"),
         (ReportKey::Done, "已完成的任务"),
-        (ReportKey::Todo, "本周的任务（周五，下周安排的任务）"),
+        (ReportKey::Todo, "本周的任务"),
         (ReportKey::Comment, "备忘"),
     ])
 });

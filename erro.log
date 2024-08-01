@@ -1,0 +1,68 @@
+❯ cat ~/.todo
+[ ] 模型描述: build the zero-evolution and add para; vim zhongqi_latex/src/03_model.tex and 00-daily*.md though ()
+[ ] split mito data into gene/sequence or use whole seq for analysis. ()
+[ ] make a model list for revbayes P3 ()
+[ ] 输入文件格式，即数据来源 ()
+[ ] learning model adding and config in revbayes ()
+[ ] ascp 批量下载基因 ()
+[ ] 我要做的是annotate，在mito/test里，mitoz-tools遇到的问题与基因名长度有关，短于13字符可能就可以了，但是mito-tools只是一个排列的程序，不进行annotate，要重新弄 ()
+[ ] test for record only (-2220.2)
+❯ todo record 7 0.2
+❯ cat ~/.todo
+[ ] 模型描述: build the zero-evolution and add para; vim zhongqi_latex/src/03_model.tex and 00-daily*.md though ()
+[ ] split mito data into gene/sequence or use whole seq for analysis. ()
+[ ] make a model list for revbayes P3 ()
+[ ] 输入文件格式，即数据来源 ()
+[ ] learning model adding and config in revbayes ()
+[ ] ascp 批量下载基因 ()
+[ ] 我要做的是annotate，在mito/test里，mitoz-tools遇到的问题与基因名长度有关，短于13字符可能就可以了，但是mito-tools只是一个排列的程序，不进行annotate，要重新弄 ()
+[ ] test for record only (0.2)
+.2)
+
+❯ cat ~/.todo
+[ ] 模型描述: build the zero-evolution and add para; vim zhongqi_latex/src/03_model.tex and 00-daily*.md though ()
+[ ] split mito data into gene/sequence or use whole seq for analysis. ()
+[ ] make a model list for revbayes P3 ()
+[ ] 输入文件格式，即数据来源 ()
+[ ] learning model adding and config in revbayes ()
+[ ] ascp 批量下载基因 ()
+[ ] 我要做的是annotate，在mito/test里，mitoz-tools遇到的问题与基因名长度有关，短于13字符可能就可以了，但是mito-tools只是一个排列的程序，不进行annotate，要重新弄 ()
+[ ] test for record only (220.2)
+❯ todo record 7 0.2
+❯ cat ~/.todo
+[ ] 模型描述: build the zero-evolution and add para; vim zhongqi_latex/src/03_model.tex and 00-daily*.md though ()
+[ ] split mito data into gene/sequence or use whole seq for analysis. ()
+[ ] make a model list for revbayes P3 ()
+[ ] 输入文件格式，即数据来源 ()
+[ ] learning model adding and config in revbayes ()
+[ ] ascp 批量下载基因 ()
+[ ] 我要做的是annotate，在mito/test里，mitoz-tools遇到的问题与基因名长度有关，短于13字符可能就可以了，但是mito-tools只是一个排列的程序，不进行annotate，要重新弄 ()
+[ ] test for record only (0.2)
+)
+
+❯ cat ~/.todo
+[ ] 模型描述: build the zero-evolution and add para; vim zhongqi_latex/src/03_model.tex and 00-daily*.md though ()
+[ ] split mito data into gene/sequence or use whole seq for analysis. ()
+[ ] make a model list for revbayes P3 ()
+[ ] 输入文件格式，即数据来源 ()
+[ ] learning model adding and config in revbayes ()
+[ ] ascp 批量下载基因 ()
+[ ] 我要做的是annotate，在mito/test里，mitoz-tools遇到的问题与基因名长度有关，短于13字符可能就可以了，但是mito-tools只是一个排列的程序，不进行annotate，要重新弄 ()
+[ ] test for record only (10.0)
+❯ todo record 7 2
+❯ cat ~/.todo
+[ ] 模型描述: build the zero-evolution and add para; vim zhongqi_latex/src/03_model.tex and 00-daily*.md though ()
+[ ] split mito data into gene/sequence or use whole seq for analysis. ()
+[ ] make a model list for revbayes P3 ()
+[ ] 输入文件格式，即数据来源 ()
+[ ] learning model adding and config in revbayes ()
+[ ] ascp 批量下载基因 ()
+[ ] 我要做的是annotate，在mito/test里，mitoz-tools遇到的问题与基因名长度有关，短于13字符可能就可以了，但是mito-tools只是一个排列的程序，不进行annotate，要重新弄 ()
+[ ] test for record only (2.0)
+# 注意，这里已经有了空行
+# 如果是12改成10就没事
+# 10-1 10.0-1.0 10-0.1 都有空行
+# 但如果是增大，无论几位数，都没问题
+# 10-9也有空行
+
+

@@ -131,6 +131,23 @@ fn main() {
                 });
         }
         (cli::DONE, i) => {
+            let now = OffsetDateTime::now_local()
+                .unwrap_or_else(|e| {
+                    eprintln!("failed to get datetime: {}", e);
+                    process::exit(1);
+                })
+                .unix_timestamp();
+            let today = OffsetDateTime::now_local()
+                .unwrap_or_else(|e| {
+                    eprintln!("failed to get datetime: {}", e);
+                    process::exit(1);
+                })
+                .replace_time(time::macros::time!(0:00))
+                .unix_timestamp();
+            let time_stamp: f32 = (now as f32 - today as f32) / 3600.0;
+
+            let time_fl = time_stamp.to_string();
+
             let result = done::done(
                 &mut reader,
                 i.get_one::<String>("INDEX")
@@ -140,6 +157,13 @@ fn main() {
                         eprintln!("failed, <INDEX> should be integer");
                         process::exit(1);
                     }),
+                i.get_one::<String>("TIME")
+                    .unwrap_or(&time_fl)
+                    .parse::<f32>()
+                    .unwrap_or_else(|_| {
+                        eprintln!("failed, <TIME> should be float");
+                        process::exit(1);
+                    }),
             )
             .unwrap_or_else(|e| {
                 eprintln!("failed to done a task: {}", e);
@@ -147,6 +171,7 @@ fn main() {
             });
             let mut writer = OpenOptions::new()
                 .write(true)
+                .truncate(true) // 如果文件已存在，则清空其内容
                 .open(&fp)
                 .unwrap_or_else(|_| panic!("failed to open the file {}", fp));
             writer.write_all(result.as_bytes()).unwrap_or_else(|e| {
@@ -179,6 +204,23 @@ fn main() {
             });
         }
         (cli::RECORD, it) => {
+            let now = OffsetDateTime::now_local()
+                .unwrap_or_else(|e| {
+                    eprintln!("failed to get datetime: {}", e);
+                    process::exit(1);
+                })
+                .unix_timestamp();
+            let today = OffsetDateTime::now_local()
+                .unwrap_or_else(|e| {
+                    eprintln!("failed to get datetime: {}", e);
+                    process::exit(1);
+                })
+                .replace_time(time::macros::time!(0:00))
+                .unix_timestamp();
+            let time_stamp: f32 = (now as f32 - today as f32) / 3600.0;
+
+            let time_fl = time_stamp.to_string();
+
             let result = record::record(
                 &mut reader,
                 it.get_one::<String>("INDEX")
@@ -189,12 +231,16 @@ fn main() {
                         process::exit(1);
                     }),
                 it.get_one::<String>("TIME")
-                    .unwrap()
+                    .unwrap_or(&time_fl)
                     .parse::<f32>()
                     .unwrap_or_else(|_| {
                         eprintln!("failed, <TIME> should be float");
                         process::exit(1);
                     }),
+                //     time_fl.parse::<f32>().unwrap_or_else(|_| {
+                //     eprintln!("failed, <TIME> should be float");
+                //     process::exit(1);
+                // }),
             )
             .unwrap_or_else(|e| {
                 eprintln!("failed to record time: {}", e);
@@ -202,6 +248,7 @@ fn main() {
             });
             let mut writer = OpenOptions::new()
                 .write(true)
+                .truncate(true) // 如果文件已存在，则清空其内容
                 .open(&fp)
                 .unwrap_or_else(|_| panic!("failed to open the file {}", fp));
             writer.write_all(result.as_bytes()).unwrap_or_else(|e| {
@@ -315,7 +362,7 @@ fn main() {
                     eprintln!("failed to get datetime: {}", e);
                     process::exit(1);
                 });
-            let lang = cdl.get_one::<Language>("LANG").unwrap_or(&Language::Ja);
+            let lang = cdl.get_one::<Language>("LANG").unwrap_or(&Language::En);
             let result = report::report(
                 &mut reader,
                 cdl.get_one::<String>("COMMENT").unwrap_or(&"".to_owned()),

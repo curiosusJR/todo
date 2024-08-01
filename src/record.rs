@@ -15,7 +15,13 @@ pub(crate) fn record<R: BufRead>(
     while reader.read_line(&mut l)? > 0 {
         if index == i {
             let mut todo = Todo::deserialize(l.as_str())?;
-            todo.time = Some(t);
+            if todo.done {
+                todo.time = Some(todo.time.unwrap_or(0.0) - t);
+                todo.done = false;
+            } else if todo.time == None {
+                todo.time = Some(-t);
+            }
+            // println!("{}", Some(t).unwrap_or(0.0));
             w.push_str(todo.serialize().as_str());
         } else {
             w.push_str(l.as_str());
