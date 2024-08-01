@@ -32,7 +32,7 @@ Commands:
   edit        edit the task description
   done        done the task
   undone      undone the task
-  record      record elapsed time
+  begin      record elapsed time
   unrecord    unrecord elapsed time
   show        show the task
   sort        sort tasks
@@ -99,9 +99,9 @@ $ todo list
 Record beginning time point
 
 ```sh-session
-$ todo record 0 0.1
-$ todo record 1 0.1
-$ todo record 2 0.5
+$ todo begin 0 0.1
+$ todo begin 1 0.1
+$ todo begin 2 0.5
 $ todo list
 ☑ 000: 朝起きる (0.1)
 ☑ 001: 歯を磨く (0.1)
