@@ -82,7 +82,7 @@ $ todo list
 ☐ 003: お水を一杯飲む
 ```
 
-Done todo
+Done todo with current time point
 
 ```sh-session
 $ todo done 0
@@ -96,7 +96,7 @@ $ todo list
 
 ```
 
-Record elapsed time
+Record beginning time point
 
 ```sh-session
 $ todo record 0 0.1

@@ -196,6 +196,7 @@ fn main() {
             });
             let mut writer = OpenOptions::new()
                 .write(true)
+                .truncate(true) // 如果文件已存在，则清空其内容
                 .open(&fp)
                 .unwrap_or_else(|_| panic!("failed to open the file {}", fp));
             writer.write_all(result.as_bytes()).unwrap_or_else(|e| {
@@ -273,6 +274,7 @@ fn main() {
             });
             let mut writer = OpenOptions::new()
                 .write(true)
+                .truncate(true) // 如果文件已存在，则清空其内容
                 .open(&fp)
                 .unwrap_or_else(|_| panic!("failed to open the file {}", fp));
             writer.write_all(result.as_bytes()).unwrap_or_else(|e| {

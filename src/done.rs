@@ -16,7 +16,7 @@ pub(crate) fn done<R: BufRead>(
         if index == i {
             let mut todo = Todo::deserialize(l.as_str())?;
             if !todo.done {
-                todo.time = Some(t + todo.time.unwrap_or(0.0));
+                todo.time = Some(t + todo.time.unwrap_or(-t));
                 if todo.time < Some(0.0) {
                     todo.time = Some(todo.time.unwrap_or(0.0) + 24.0);
                 }
