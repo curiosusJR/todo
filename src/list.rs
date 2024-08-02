@@ -107,7 +107,7 @@ mod tests {
     use std::io::BufReader;
 
     #[test]
-    fn test_list() {
+    fn test_list_all() {
         let mut reader = BufReader::new(
             "[x] first ()\n\
              [x] second (2.0)\n\
@@ -116,11 +116,56 @@ mod tests {
                 .as_bytes(),
         );
         assert_eq!(
-            list(&mut reader, s).unwrap(),
-            "\u{1b}[1m\u{1b}[36m\u{2611} 000: first\n\u{1b}[0m\u{1b}[0m\
-             \u{1b}[1m\u{1b}[36m\u{2611} 001: second (2.0)\n\u{1b}[0m\u{1b}[0m\
+            list(&mut reader, &Part::All).unwrap(),
+            "\u{1b}[1m\u{2610} 003: fourth (4.0)\n\u{1b}[0m\
              \u{1b}[1m\u{2610} 002: third\n\u{1b}[0m\
-             \u{1b}[1m\u{2610} 003: fourth (4.0)\n\u{1b}[0m"
+             \u{1b}[1m\u{1b}[36m\u{2611} 000: first\n\u{1b}[0m\u{1b}[0m\
+             \u{1b}[1m\u{1b}[36m\u{2611} 001: second (2.0)\n\u{1b}[0m\u{1b}[0m"
+        );
+    }
+    #[test]
+    fn test_list_todo() {
+        let mut reader = BufReader::new(
+            "[x] first ()\n\
+             [x] second (2.0)\n\
+             [ ] third ()\n\
+             [ ] fourth (4.0)\n"
+                .as_bytes(),
+        );
+        assert_eq!(
+            list(&mut reader, &Part::Todo).unwrap(),
+            "\u{1b}[1m\u{2610} 002: third\n\u{1b}[0m\
+             \u{1b}[1m\u{1b}[36m\u{2611} 000: first\n\u{1b}[0m\u{1b}[0m\
+             \u{1b}[1m\u{1b}[36m\u{2611} 001: second (2.0)\n\u{1b}[0m\u{1b}[0m"
+        );
+    }
+    #[test]
+    fn test_list_done() {
+        let mut reader = BufReader::new(
+            "[x] first ()\n\
+             [x] second (2.0)\n\
+             [ ] third ()\n\
+             [ ] fourth (4.0)\n"
+                .as_bytes(),
+        );
+        assert_eq!(
+            list(&mut reader, &Part::Done).unwrap(),
+            "\u{1b}[1m\u{2610} 003: fourth (4.0)\n\u{1b}[0m\
+            \u{1b}[1m\u{2610} 002: third\n\u{1b}[0m"
+        );
+    }
+    #[test]
+    fn test_list_doing() {
+        let mut reader = BufReader::new(
+            "[x] first ()\n\
+             [x] second (2.0)\n\
+             [ ] third ()\n\
+             [ ] fourth (4.0)\n"
+                .as_bytes(),
+        );
+        assert_eq!(
+            list(&mut reader, &Part::Doing).unwrap(),
+            "\u{1b}[1m\u{2610} 003: fourth (4.0)\n\u{1b}[0m"
         );
     }
 }

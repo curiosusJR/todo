@@ -152,7 +152,7 @@ mod tests {
              - first\n\
              - second (2.0h)\n\
              \n\
-             ### その他、今週対応予定のタスク（金曜日は来週対応予定のタスク）\n\
+             ### その他、今週対応予定のタスク\n\
              - third\n\
              \n\
              ### メモ、ぼやき\n\
@@ -173,7 +173,7 @@ mod tests {
              - first\n\
              - second (2.0h)\n\
              \n\
-             ### Todo tasks in this week (On Friday, next week scheduled tasks)\n\
+             ### Todo tasks in this week\n\
              - third\n\
              \n\
              ### Memo & Comments\n\
@@ -194,7 +194,7 @@ mod tests {
              - first\n\
              - second (2.0h)\n\
              \n\
-             ### 本周的任务（周五，下周安排的任务）\n\
+             ### 本周的任务\n\
              - third\n\
              \n\
              ### 备忘\n\

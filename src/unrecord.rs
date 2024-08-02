@@ -49,7 +49,7 @@ mod tests {
         );
         assert_eq!(
             unrecord(&mut reader, 0).unwrap(),
-            "[x] first ()\n\
+            "[ ] first ()\n\
              [x] second ()\n"
         );
     }

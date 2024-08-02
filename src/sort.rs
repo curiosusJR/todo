@@ -43,10 +43,10 @@ mod tests {
         );
         assert_eq!(
             sort(&mut reader).unwrap(),
-            "[x] second ()\n\
-             [x] fourth ()\n\
-             [ ] first ()\n\
-             [ ] third ()\n"
+            "[ ] first ()\n\
+             [ ] third ()\n\
+            [x] second ()\n\
+             [x] fourth ()\n"
         );
     }
 }

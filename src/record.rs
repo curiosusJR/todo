@@ -55,7 +55,7 @@ mod tests {
         );
         assert_eq!(
             record(&mut reader, 0, 0.5).unwrap(),
-            "[x] first (0.5)\n\
+            "[ ] first (-0.5)\n\
              [x] second ()\n"
         );
     }
