@@ -310,6 +310,10 @@ fn main() {
                 eprintln!("failed to swap tasks: {}", e);
                 process::exit(1);
             });
+
+            // // print to screen
+            // println!("{}", result);
+            // write to file
             let mut writer = OpenOptions::new()
                 .write(true)
                 .open(&fp)

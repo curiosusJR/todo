@@ -39,19 +39,58 @@ impl List {
 pub(crate) fn list<R: BufRead>(
     reader: &mut R,
 ) -> Result<String, Box<dyn error::Error + Send + Sync + 'static>> {
-    let mut w = String::new();
+    // let mut w = String::new();
+    // let mut todo_sort = String::new();
+    // let mut done = String::new();
+    // let mut time = String::new();
 
     let mut index = 0;
     let mut l = String::new();
-    while reader.read_line(&mut l)? > 0 {
-        let todo = List(Todo::deserialize(l.as_str())?);
-        w.push_str(todo.serialize(index).as_str());
 
+    let mut done_w = String::new();
+    let mut time_w = String::new();
+    let mut todo_w = String::new();
+
+    while reader.read_line(&mut l)? > 0 {
+        // println!("l :{}", l);
+        let task = Todo::deserialize(l.as_str())?;
+        if task.done {
+            // done.push_str(l.as_str());
+            let done_l = List(Todo::deserialize(l.as_str())?);
+            done_w.push_str(done_l.serialize(index).as_str());
+        } else if task.time.is_some() {
+            // time.push_str(l.as_str());
+            let time_l = List(Todo::deserialize(l.as_str())?);
+            time_w.push_str(time_l.serialize(index).as_str());
+        } else {
+            // todo_sort.push_str(l.as_str());
+            let todo_l = List(Todo::deserialize(l.as_str())?);
+            todo_w.push_str(todo_l.serialize(index).as_str());
+        }
+        // println!("todo_w :{}", todo_w);
+
+        // let todo = List(Todo::deserialize(l.as_str())?);
+        // println!("todo :{}", todo.serialize(index).as_str());
+        //
+        // if !todo_sort.as_str().is_empty() {
+        //     let todo_l = List(Todo::deserialize(todo_sort.as_str())?);
+        //     todo_w.push_str(todo_l.serialize(index).as_str());
+        // }
+        // if !done.as_str().is_empty() {
+        //     let done_l = List(Todo::deserialize(done.as_str())?);
+        //     done_w.push_str(done_l.serialize(index).as_str());
+        // }
+        // if !time.as_str().is_empty() {
+        //     let time_l = List(Todo::deserialize(time.as_str())?);
+        //     time_w.push_str(time_l.serialize(index).as_str());
+        // }
         index += 1;
         l.clear();
+        // println!("1{}", todo_w);
     }
 
-    Ok(w)
+    // Ok(w)
+    Ok(time_w + todo_w.as_str() + &done_w)
 }
 
 #[cfg(test)]
