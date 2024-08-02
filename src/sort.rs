@@ -8,12 +8,15 @@ pub(crate) fn sort<R: BufRead>(
 ) -> Result<String, Box<dyn error::Error + Send + Sync + 'static>> {
     let mut todo = String::new();
     let mut done = String::new();
+    let mut time = String::new();
 
     let mut l = String::new();
     while reader.read_line(&mut l)? > 0 {
         let task = Todo::deserialize(l.as_str())?;
         if task.done {
             done.push_str(l.as_str());
+        } else if task.time.is_some() {
+            time.push_str(l.as_str());
         } else {
             todo.push_str(l.as_str());
         }
@@ -21,7 +24,7 @@ pub(crate) fn sort<R: BufRead>(
         l.clear();
     }
 
-    Ok(done + todo.as_str())
+    Ok(time + todo.as_str() + &done)
 }
 
 #[cfg(test)]
