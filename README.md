@@ -5,14 +5,14 @@
 [![dependency status](https://deps.rs/repo/github/thekuwayama/todo/status.svg)](https://deps.rs/repo/github/thekuwayama/todo)
 
 `todo` is a simple todo list command-line tool written in Rust.
-
+forked from <https://github.com/thekuwayama/todo.git>
 
 ## Install
 
 You can install `todo` with the following:
 
 ```sh-session
-$ cargo install --git https://github.com/thekuwayama/todo.git --branch main
+$ cargo install --git https://github.com/curiosusJR/todo.git --branch main
 ```
 
 
@@ -30,10 +30,10 @@ Commands:
   add         add the task
   delete      delete the task
   edit        edit the task description
-  done        done the task
+  done        done the task and record elapsed time
   undone      undone the task
-  begin      record elapsed time
-  unrecord    unrecord elapsed time
+  begin       record the beginning time point
+  unrecord    unrecord elapsed time (same to undone)
   show        show the task
   sort        sort tasks
   swap        swap two tasks
@@ -49,115 +49,160 @@ Options:
 
 ```
 
-List todo
+
+
+
+Add your todo
 
 ```sh-session
-$ todo list
-☐ 000: 朝起きる
-☐ 001: 歯を磨く
-☐ 002: シャワーを浴びる
+$ todo add --help
+add the task
+
+Usage: todo add <TASK>
+
+Arguments:
+  <TASK>
+
+Options:
+  -h, --help  Print help
+$ todo add 'drink water'
+$ todo add 'do some sports'
+$ todo add 'laugh 10 times'
 
 ```
 
-Add new todo
+List todo
 
 ```sh-session
-$ todo add 散歩する
-$ todo list
-☐ 000: 朝起きる
-☐ 001: 歯を磨く
-☐ 002: シャワーを浴びる
-☐ 003: 散歩する
+$ todo list --help
+show todo list
 
+Usage: todo list [PART]
+
+Arguments:
+  [PART]  [possible values: doing, done, todo, all]
+
+Options:
+  -h, --help  Print help
+
+$ todo list
+☐ 000: drink water
+☐ 001: do some sports 
+☐ 002: laugh 10 times
 ```
 
 Edit todo
 
-```sh-session
-$ todo edit 3 お水を一杯飲む
+```
+$ todo edit 1 'fix bugs'
 $ todo list
-☐ 000: 朝起きる
-☐ 001: 歯を磨く
-☐ 002: シャワーを浴びる
-☐ 003: お水を一杯飲む
+☐ 000: drink water
+☐ 001: fix bugs 
+☐ 002: laugh 10 times
+```
 ```
 
-Done todo with current time point
+Begin todo with current or given time point
 
 ```sh-session
+# assume current time is 22:30
+$ todo begin 0 
+$ todo begin 1 10
+$ todo list
+☐ 000: drink water (-22.5)
+☐ 001: fix bugs (-10.0)
+☐ 002: laugh 10 times
+
+```
+
+Done todo and record elapsed time
+
+```sh-session
+# assume current time is 23:30
+# unbegun todo will done with 0h
 $ todo done 0
 $ todo done 1
 $ todo done 2
 $ todo list
-☑ 000: 朝起きる
-☑ 001: 歯を磨く
-☑ 002: シャワーを浴びる
-☐ 003: お水を一杯飲む
+☑ 000: drink water (1.0)
+☑ 001: fix bugs (7.5)
+☑ 002: laugh 10 times (0.0)
 
 ```
-
-Record beginning time point
-
+You can re-begin a done task
+If your todos have different situations, 
+`todo list` command will automaticly sort them by 'doing-todo-done' order.
 ```sh-session
-$ todo begin 0 0.1
-$ todo begin 1 0.1
-$ todo begin 2 0.5
 $ todo list
-☑ 000: 朝起きる (0.1)
-☑ 001: 歯を磨く (0.1)
-☑ 002: シャワーを浴びる (0.5)
-☐ 003: お水を一杯飲む
-
+☐ 003: buy a keyboard (-7.9)
+☐ 001: fix bugs
+☑ 000: drink water (0.0)
+☑ 002: laugh 10 times (10.0)
 ```
+
+
 
 Report today's achievements
 
 ```sh-session
-$ todo report
-## 2021/06/20 (0.7h)
-### 進行中のタスク
 
-### 完了済みのタスク
-- 朝起きる (0.1h)
-- 歯を磨く (0.1h)
-- シャワーを浴びる (0.5h)
+$ todo report --help
+report today's achievements
 
-### その他、今週対応予定のタスク (金曜日は来週対応予定のタスク)
-- お水を一杯飲む
+Usage: todo report [OPTIONS] [COMMENT] [TITLE]
 
-### メモ、ぼやき
+Arguments:
+  [COMMENT]
+  [TITLE]
 
-```
-```sh-session
-$ todo report --lang en
-## 2021/06/20 (0.7h)
+Options:
+  -l, --lang <LANG>  [possible values: ja, en, zh]
+  -h, --help         Print help
+
+$ todo report 
+## 2024/08/03 (10.0h)
 ### Doing tasks
+- buy a keyboard (-7.9h)
 
 ### Done tasks
-- 朝起きる (0.1h)
-- 歯を磨く (0.1h)
-- シャワーを浴びる (0.5h)
+- drink water (0.0h)
+- laugh 10 times (10.0h)
 
-### Todo tasks in this week (On Friday, next week scheduled tasks)
-- お水を一杯飲む
+### Todo tasks in this week
+- fix bugs
 
 ### Memo & Comments
-
 ```
 ```sh-session
-$ todo report --lang zh
-## 2021/06/20 (0.7h)
+$ todo report --lang zh 开心每一天
+## 2024/08/03 (10.0h)
 ### 进行中的任务
+- buy a keyboard (-7.9h)
 
 ### 已完成的任务
-- 朝起きる (0.1h)
-- 歯を磨く (0.1h)
-- シャワーを浴びる (0.5h)
+- drink water (0.0h)
+- laugh 10 times (10.0h)
 
-### 本周的任务（周五，下周安排的任务）
-- お水を一杯飲む
+### 本周的任务
+- fix bugs
 
 ### 备忘
+开心每一天
+```
+```sh-session
+$ todo report -l ja '' "happy day""
+## happy day (10.0h)
+### 進行中のタスク
+- buy a keyboard (-7.9h)
+
+### 完了済みのタスク
+- drink water (0.0h)
+- laugh 10 times (10.0h)
+
+### その他、今週対応予定のタスク
+- fix bugs
+
+### メモ、ぼやき
 
 ```
 
@@ -166,7 +211,8 @@ Continue todo list
 ```sh-session
 $ todo continue
 $ todo list
-☐ 000: お水を一杯飲む
+☐ 000: fix bugs
+☐ 001: buy a keyboard
 
 ```
 

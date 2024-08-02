@@ -77,7 +77,7 @@ pub(crate) fn report<R: BufRead>(
         } else if todo.done {
             dones.push_str(Report(todo).serialize().as_str());
         } else if todo.time.is_some() {
-            elapsed += todo.time.unwrap_or(0.0);
+            // elapsed += todo.time.unwrap_or(0.0);
             doings.push_str(Report(todo).serialize().as_str());
         } else {
             todos.push_str(Report(todo).serialize().as_str());
@@ -144,7 +144,7 @@ mod tests {
         let mut reader = BufReader::new(INPUT);
         assert_eq!(
             report(&mut reader, "test", "2020/01/22", &Language::Ja).unwrap(),
-            "## 2020/01/22 (6.0h)\n\
+            "## 2020/01/22 (2.0h)\n\
              ### 進行中のタスク\n\
              - fourth (4.0h)\n\
              \n\
@@ -165,7 +165,7 @@ mod tests {
         let mut reader = BufReader::new(INPUT);
         assert_eq!(
             report(&mut reader, "test", "2020/01/22", &Language::En).unwrap(),
-            "## 2020/01/22 (6.0h)\n\
+            "## 2020/01/22 (2.0h)\n\
              ### Doing tasks\n\
              - fourth (4.0h)\n\
              \n\
@@ -186,7 +186,7 @@ mod tests {
         let mut reader = BufReader::new(INPUT);
         assert_eq!(
             report(&mut reader, "test", "2020/01/22", &Language::Zh).unwrap(),
-            "## 2020/01/22 (6.0h)\n\
+            "## 2020/01/22 (2.0h)\n\
              ### 进行中的任务\n\
              - fourth (4.0h)\n\
              \n\

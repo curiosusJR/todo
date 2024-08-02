@@ -102,7 +102,7 @@ pub(crate) fn build() -> Command {
         )
         .subcommand(
             Command::new(DONE)
-                .about("done the task")
+                .about("done the task and record elapsed time")
                 .arg(arg!(<INDEX>).required(true))
                 .arg(arg!(<TIME>).required(false)),
         )
@@ -113,13 +113,13 @@ pub(crate) fn build() -> Command {
         )
         .subcommand(
             Command::new(RECORD)
-                .about("record elapsed time")
+                .about("record the beginning time point")
                 .arg(arg!(<INDEX>).required(true))
                 .arg(arg!(<TIME>).required(false)),
         )
         .subcommand(
             Command::new(UNRECORD)
-                .about("unrecord elapsed time")
+                .about("unrecord elapsed time (same to undone)")
                 .arg(arg!(<INDEX>).required(true)),
         )
         .subcommand(
