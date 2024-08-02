@@ -225,6 +225,12 @@ You can load the file to do the bash completion.
 $ echo "eval \"\$(todo completion)\"" >> ~/.bash_profile
 ```
 
+## Interface with Mac shortcuts and message_visualizer
+1. Install todo executable file into your PATH
+2. Install mac_message_visualizer <https://github.com/curiosusJR/mac-msg-visualizer.github> and build it with Xcode
+3. Open the 'todo-add-interface.shortcut' in macOS Shortcut app and edit mac_message_visualizer path in it.
+4. Binding a shortcut key with 'shortcuts run todo-add-interface'
+5. Test your runnng.
 
 ## Note
 
