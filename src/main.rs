@@ -25,7 +25,7 @@ use std::process;
 use clap_complete::{generate, shells};
 use time::{format_description, OffsetDateTime};
 
-use crate::cli::{Language, Shell};
+use crate::cli::{Language, Part, Shell};
 
 const FILE_NAME: &str = ".todo";
 
@@ -47,8 +47,9 @@ fn main() {
         .unwrap_or_else(|_| panic!("failed to open the file {}", fp));
     let mut reader = BufReader::new(r);
     match cli::build().get_matches().subcommand().unwrap() {
-        (cli::LIST, _) => {
-            let result = list::list(&mut reader).unwrap_or_else(|e| {
+        (cli::LIST, s) => {
+            let part = s.get_one::<Part>("PART").unwrap_or(&Part::All);
+            let result = list::list(&mut reader, part).unwrap_or_else(|e| {
                 eprintln!("failed to show todo list: {}", e);
                 process::exit(1);
             });

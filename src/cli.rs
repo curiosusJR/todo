@@ -34,6 +34,23 @@ impl Display for Shell {
     }
 }
 
+#[derive(ValueEnum, Clone, Copy)]
+pub(crate) enum Part {
+    Doing,
+    Done,
+    Todo,
+    All,
+}
+
+impl Display for Part {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.to_possible_value()
+            .expect("no values are skipped")
+            .get_name()
+            .fmt(f)
+    }
+}
+
 pub(crate) const ADD: &str = "add";
 pub(crate) const CLEAR: &str = "clear";
 pub(crate) const COMPLETION: &str = "completion";
@@ -57,7 +74,15 @@ pub(crate) fn build() -> Command {
         .about(crate_description!())
         .subcommand_required(true)
         .arg_required_else_help(true)
-        .subcommand(Command::new(LIST).about("show todo list"))
+        .subcommand(
+            Command::new(LIST).about("show todo list").arg(
+                arg!(<PART>)
+                    // .long("part")
+                    // .short('p')
+                    .value_parser(value_parser!(Part))
+                    .required(false),
+            ),
+        )
         .subcommand(Command::new(CLEAR).about("clear todo list"))
         .subcommand(
             Command::new(ADD)

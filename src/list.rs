@@ -1,6 +1,7 @@
 use std::error;
 use std::io::BufRead;
 
+use crate::cli::Part;
 use crate::format::Todo;
 use crate::string::StringExt;
 
@@ -38,6 +39,7 @@ impl List {
 
 pub(crate) fn list<R: BufRead>(
     reader: &mut R,
+    s: &Part,
 ) -> Result<String, Box<dyn error::Error + Send + Sync + 'static>> {
     // let mut w = String::new();
     // let mut todo_sort = String::new();
@@ -90,7 +92,13 @@ pub(crate) fn list<R: BufRead>(
     }
 
     // Ok(w)
-    Ok(time_w + todo_w.as_str() + &done_w)
+    match *s {
+        Part::All => Ok(time_w + todo_w.as_str() + &done_w),
+        Part::Todo => Ok(todo_w.as_str().to_owned() + &done_w),
+        Part::Done => Ok(time_w + todo_w.as_str()),
+        Part::Doing => Ok(time_w),
+        // Some(_) => Ok(time_w + todo_w.as_str() + &done_w),
+    }
 }
 
 #[cfg(test)]
@@ -108,7 +116,7 @@ mod tests {
                 .as_bytes(),
         );
         assert_eq!(
-            list(&mut reader).unwrap(),
+            list(&mut reader, s).unwrap(),
             "\u{1b}[1m\u{1b}[36m\u{2611} 000: first\n\u{1b}[0m\u{1b}[0m\
              \u{1b}[1m\u{1b}[36m\u{2611} 001: second (2.0)\n\u{1b}[0m\u{1b}[0m\
              \u{1b}[1m\u{2610} 002: third\n\u{1b}[0m\
