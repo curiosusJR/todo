@@ -5,8 +5,10 @@ use crate::cli::Part;
 use crate::format::Todo;
 use crate::string::StringExt;
 
-const TODO: &str = "\u{2610}";
-const DONE: &str = "\u{2611}";
+// const TODO: &str = "\u{2610}";
+// const DONE: &str = "\u{2714}";
+const TODO: &str = "\u{2B55}";
+const DONE: &str = "\u{2705}";
 
 struct List(Todo);
 impl List {
